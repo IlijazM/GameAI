@@ -24,8 +24,8 @@ class NN:
         x = []
         for node in self.layers[self.layerCount - 1].nodes:
             x.append(node.generate())
-        
         return x
+    
 
 class Layer:
     def __init__(self, previouseLayer, nodeCount, activationFunction):
@@ -35,10 +35,14 @@ class Layer:
         self.activationFunction = activationFunction
     
     def init(self):
-        for i in range(0, self.nodeCount): self.nodes.append(Node(self))
+        for i in range(0, self.nodeCount):
+            node = Node(self)
+            node.init()
+            self.nodes.append(node)
 
     def randomize(self):
-        for node in self.nodes: node.randomize();
+        for node in self.nodes: node.randomize()
+
 
 
 class Node:
@@ -49,6 +53,7 @@ class Node:
         self.weighes = []
         self.bias = 0
 
+    def init(self):
         if not self.isInput(): self.initWeighes()
         
 
